@@ -18,18 +18,18 @@ const Wrapper = styled.div`
 `;
 
 const Loader = styled.div`
-  margin: 30px;
-  height: 30px;
-  width: 30px;
+  margin: ${props => (props.size === 'small' ? '15px' : '30px')};
+  height: ${props => (props.size === 'small' ? '15px' : '30px')};
+  width: ${props => (props.size === 'small' ? '15px' : '30px')};
   animation: ${rotate} 0.8s infinite linear;
   border: 4px solid #e9003f;
   border-right-color: transparent;
   border-radius: 50%;
 `;
 
-const Loading = () => (
+const Loading = props => (
   <Wrapper>
-    <Loader />
+    <Loader {...props} />
   </Wrapper>
 );
 
