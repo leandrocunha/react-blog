@@ -1,4 +1,5 @@
 import React, { Component, Fragment } from 'react';
+import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import api from './api';
 import Comments from './Comments';
@@ -10,14 +11,16 @@ class Post extends Component {
   }
 
   componentDidMount() {
-    const { match } = this.props;
-    api
-      .post(match.params.id)
-      .then(res => this.setState({ loading: false, post: { ...res } }));
+    const { dispatch, match } = this.props;
+    api.post(match.params.id).then(res => {
+      dispatch({ type: 'POST', data: res });
+      setTimeout(() => this.setState({ loading: false }), 800);
+    });
   }
 
   render() {
-    const { loading, post } = this.state;
+    const { loading } = this.state;
+    const { post } = this.props;
 
     return (
       <div>
@@ -41,4 +44,6 @@ class Post extends Component {
   }
 }
 
-export default Post;
+const mapStateToProps = state => state;
+
+export default connect(mapStateToProps)(Post);

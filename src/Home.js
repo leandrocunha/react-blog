@@ -2,6 +2,7 @@ import React, { Component, Fragment } from 'react';
 import { Link } from 'react-router-dom';
 import api from './api';
 import { preview } from './utils';
+import { connect } from 'react-redux';
 
 class Home extends Component {
   constructor(props) {
@@ -11,20 +12,27 @@ class Home extends Component {
   }
 
   componentDidMount() {
-    api.posts().then(res => this.setState({ loading: false, posts: res }));
+    const { dispatch } = this.props;
+    api.posts().then(res => {
+      dispatch({ type: 'LIST', data: res });
+      setTimeout(() => this.setState({ loading: false }), 800);
+    });
   }
 
   loadMore() {
+    const { dispatch } = this.props;
     const { limit } = this.state;
     const newLimit = limit + 10;
 
-    api
-      .posts(newLimit)
-      .then(res => this.setState({ posts: res, limit: newLimit }));
+    api.posts(newLimit).then(res => {
+      dispatch({ type: 'LIST', data: res });
+      setTimeout(() => this.setState({ limit: newLimit, loading: false }), 800);
+    });
   }
 
   render() {
-    const { loading, posts } = this.state;
+    const { loading } = this.state;
+    const { list } = this.props;
 
     return (
       <div>
@@ -33,7 +41,7 @@ class Home extends Component {
           <p>loading</p>
         ) : (
           <Fragment>
-            {posts.map(post => (
+            {list.map(post => (
               <div key={post.id}>
                 <h2>
                   <Link to={`/post/${post.id}`}>{post.title}</Link>
@@ -52,4 +60,6 @@ class Home extends Component {
   }
 }
 
-export default Home;
+const mapStateToProps = state => state;
+
+export default connect(mapStateToProps)(Home);

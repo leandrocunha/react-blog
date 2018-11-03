@@ -1,4 +1,5 @@
 import React, { Component, Fragment } from 'react';
+import { connect } from 'react-redux';
 import api from './api';
 
 class Comments extends Component {
@@ -9,24 +10,27 @@ class Comments extends Component {
   }
 
   componentDidMount() {
-    const { postId } = this.props;
-    api
-      .comments(postId)
-      .then(res => this.setState({ loading: false, comments: res }));
+    const { dispatch, postId } = this.props;
+    api.comments(postId).then(res => {
+      dispatch({ type: 'COMMENTS', data: res });
+      setTimeout(() => this.setState({ loading: false }), 800);
+    });
   }
 
   loadMore() {
     const { limit } = this.state;
-    const { postId } = this.props;
+    const { dispatch, postId } = this.props;
     const newLimit = limit + 10;
 
-    api
-      .comments(postId, newLimit)
-      .then(res => this.setState({ comments: res, limit: newLimit }));
+    api.comments(postId, newLimit).then(res => {
+      dispatch({ type: 'COMMENTS', data: res });
+      setTimeout(() => this.setState({ limit: newLimit, loading: false }), 800);
+    });
   }
 
   render() {
-    const { comments, loading } = this.state;
+    const { loading } = this.state;
+    const { comments } = this.props;
 
     return (
       <div>
@@ -50,4 +54,6 @@ class Comments extends Component {
   }
 }
 
-export default Comments;
+const mapStateToProps = state => state;
+
+export default connect(mapStateToProps)(Comments);
