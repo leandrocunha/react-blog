@@ -1,8 +1,9 @@
 import React, { Component, Fragment } from 'react';
-import { Link } from 'react-router-dom';
 import api from './api';
-import { preview } from './utils';
 import { connect } from 'react-redux';
+import Header from './Header';
+import Loading from './Loading';
+import Posts from './Posts';
 
 class Home extends Component {
   constructor(props) {
@@ -35,27 +36,10 @@ class Home extends Component {
     const { list } = this.props;
 
     return (
-      <div>
-        <h1>Hello, world!</h1>
-        {loading ? (
-          <p>loading</p>
-        ) : (
-          <Fragment>
-            {list.map(post => (
-              <div key={post.id}>
-                <h2>
-                  <Link to={`/post/${post.id}`}>{post.title}</Link>
-                </h2>
-                <p>{preview(post.body)}</p>
-                <div>
-                  <p>{post.userId}</p>
-                </div>
-              </div>
-            ))}
-            <button onClick={this.loadMore}>load more</button>
-          </Fragment>
-        )}
-      </div>
+      <Fragment>
+        <Header />
+        {loading ? <Loading /> : <Posts posts={list} onClick={this.loadMore} />}
+      </Fragment>
     );
   }
 }

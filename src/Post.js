@@ -1,8 +1,28 @@
 import React, { Component, Fragment } from 'react';
+import styled from 'styled-components';
 import { connect } from 'react-redux';
-import { Link } from 'react-router-dom';
 import api from './api';
+import Breadcrumb from './Breadcrumd';
 import Comments from './Comments';
+import Header from './Header';
+import Loading from './Loading';
+
+const Wrapper = styled.div`
+  background-color: #fff;
+  border-radius: 4px;
+  box-shadow: rgba(0, 0, 0, 0.08) 1px 1px 4px 0.5px;
+  margin: 15px auto;
+  max-width: 760px;
+  padding: 25px;
+  width: 90%;
+`;
+
+const PostTitle = styled.h1`
+  color: #011627;
+  font-size: 31px;
+  font-weight: 700;
+  margin: 0 0 20px 0;
+`;
 
 class Post extends Component {
   constructor(props) {
@@ -23,23 +43,19 @@ class Post extends Component {
     const { post } = this.props;
 
     return (
-      <div>
-        <ul>
-          <li>
-            <Link to="/">Home</Link>
-          </li>
-          <li>Post</li>
-        </ul>
+      <Fragment>
+        <Header />
+        <Breadcrumb />
         {loading ? (
-          <p>loading</p>
+          <Loading />
         ) : (
-          <Fragment>
-            <h1>{post.title}</h1>
+          <Wrapper>
+            <PostTitle>{post.title}</PostTitle>
             <p>{post.body}</p>
             <Comments postId={post.id} />
-          </Fragment>
+          </Wrapper>
         )}
-      </div>
+      </Fragment>
     );
   }
 }

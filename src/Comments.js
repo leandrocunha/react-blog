@@ -1,7 +1,25 @@
 import React, { Component, Fragment } from 'react';
+import styled from 'styled-components';
 import { connect } from 'react-redux';
 import api from './api';
+import Button from './Button';
+import Comment from './Comment';
+import Loading from './Loading';
 
+const Wrapper = styled.div`
+  border-top: rgba(1, 22, 39, 0.1) 1px solid;
+  display: flex;
+  flex-direction: column;
+  margin: 35px 0 0 0;
+  padding: 35px 0 0 0;
+`;
+
+const Title = styled.h2`
+  color: #011627;
+  font-size: 21px;
+  font-weight: 700;
+  margin: 0 0 20px 0;
+`;
 class Comments extends Component {
   constructor(props) {
     super(props);
@@ -33,23 +51,19 @@ class Comments extends Component {
     const { comments } = this.props;
 
     return (
-      <div>
-        <h2>Comments</h2>
+      <Wrapper>
+        <Title>Comments</Title>
         {loading ? (
-          <p>loading...</p>
+          <Loading />
         ) : (
           <Fragment>
             {comments.map(comment => (
-              <div key={comment.id}>
-                <p>{comment.name}</p>
-                <p>{comment.email}</p>
-                <p>{comment.body}</p>
-              </div>
+              <Comment key={comment.id} {...comment} />
             ))}
-            <button onClick={this.loadMore}>load more</button>
+            <Button label="load more" onClick={this.loadMore} />
           </Fragment>
         )}
-      </div>
+      </Wrapper>
     );
   }
 }
