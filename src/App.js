@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, Fragment } from 'react';
 import reset from 'styled-reset';
 import { createGlobalStyle } from 'styled-components';
 import api from './api';
@@ -10,11 +10,21 @@ const GlobalStyle = createGlobalStyle`
 class App extends Component {
   constructor(props) {
     super(props);
-    this.state = { loading: true };
+    this.state = { loading: true, limit: 10 };
+    this.loadMore = this.loadMore.bind(this);
   }
 
   componentDidMount() {
     api.posts().then(res => this.setState({ loading: false, posts: res }));
+  }
+
+  loadMore() {
+    const { limit } = this.state;
+    const newLimit = limit + 10;
+
+    api
+      .posts(newLimit)
+      .then(res => this.setState({ posts: res, limit: newLimit }));
   }
 
   render() {
@@ -27,15 +37,18 @@ class App extends Component {
         {loading ? (
           <p>loading</p>
         ) : (
-          posts.map(post => (
-            <div key={post.id}>
-              <h2>{post.title}</h2>
-              <p>{preview(post.body)}</p>
-              <div>
-                <p>{post.userId}</p>
+          <Fragment>
+            {posts.map(post => (
+              <div key={post.id}>
+                <h2>{post.title}</h2>
+                <p>{preview(post.body)}</p>
+                <div>
+                  <p>{post.userId}</p>
+                </div>
               </div>
-            </div>
-          ))
+            ))}
+            <button onClick={this.loadMore}>load more</button>
+          </Fragment>
         )}
       </div>
     );
