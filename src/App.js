@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import reset from 'styled-reset';
 import { createGlobalStyle } from 'styled-components';
 import api from './api';
+import { preview } from './utils';
 
 const GlobalStyle = createGlobalStyle`
   ${reset}
@@ -27,9 +28,9 @@ class App extends Component {
           <p>loading</p>
         ) : (
           posts.map(post => (
-            <div>
+            <div key={post.id}>
               <h2>{post.title}</h2>
-              <p>{post.body}</p>
+              <p>{preview(post.body)}</p>
               <div>
                 <p>{post.userId}</p>
               </div>
