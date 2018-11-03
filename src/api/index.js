@@ -1,6 +1,12 @@
 const APIURL = 'https://jsonplaceholder.typicode.com';
 
 const api = {
+  comments: (postId, limit = 3) => {
+    return fetch(`${APIURL}/posts/${postId}/comments?_limit=${limit}`).then(
+      res => res.json()
+    );
+  },
+
   posts: (limit = 10) => {
     return fetch(`${APIURL}/posts?_limit=${limit}`).then(res => res.json());
   },

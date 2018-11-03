@@ -1,6 +1,7 @@
 import React, { Component, Fragment } from 'react';
 import { Link } from 'react-router-dom';
 import api from './api';
+import Comments from './Comments';
 
 class Post extends Component {
   constructor(props) {
@@ -32,6 +33,7 @@ class Post extends Component {
           <Fragment>
             <h1>{post.title}</h1>
             <p>{post.body}</p>
+            <Comments postId={post.id} />
           </Fragment>
         )}
       </div>
