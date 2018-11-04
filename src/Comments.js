@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import api from './api';
 import Button from './Button';
 import Comment from './Comment';
+import CommentForm from './CommentForm';
 import Loading from './Loading';
 
 const Wrapper = styled.div`
@@ -52,13 +53,15 @@ class Comments extends Component {
 
     return (
       <Wrapper>
+        <Title>Leave a comment</Title>
+        <CommentForm />
         <Title>Comments</Title>
         {loading ? (
           <Loading />
         ) : (
           <Fragment>
-            {comments.map(comment => (
-              <Comment key={comment.id} {...comment} />
+            {comments.map((comment, index) => (
+              <Comment key={index} {...comment} />
             ))}
             <Button label="load more" onClick={this.loadMore} />
           </Fragment>

@@ -10,10 +10,16 @@ const Btn = styled.button`
   font-weight: 700;
   margin: 0 auto;
   padding: 8px 16px;
+
+  &:disabled {
+    opacity: 0.3;
+  }
 `;
 
-const Button = ({ onClick, label }) => (
-  <Btn onClick={() => onClick()}>{label}</Btn>
+const Button = ({ disabled, label, onClick }) => (
+  <Btn disabled={disabled} onClick={() => (onClick ? onClick() : null)}>
+    {label}
+  </Btn>
 );
 
 export default Button;

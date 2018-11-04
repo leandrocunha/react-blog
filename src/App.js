@@ -22,6 +22,20 @@ const GlobalStyle = createGlobalStyle`
   }
 
   a { color: #e9003f; text-decoration: none; }
+
+  input[type=text],
+  textarea {
+    background-color: rgba(1, 22, 39, 0.08);
+    border: none;
+    border-radius: 4px;
+    color: rgba(1, 22, 39, 0.8);
+    font-family: 'Open Sans', sans-serif;
+    font-size: 14px;
+    line-height: 1.4;
+    margin: 0 0 15px 0;
+    padding: 15px;
+    width: 100%;
+  }
 `;
 
 const App = () => (
