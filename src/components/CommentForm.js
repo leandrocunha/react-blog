@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import styled from 'styled-components';
 import { connect } from 'react-redux';
-import api from './api';
+import api from '../api';
 import Button from './Button';
 import Loading from './Loading';
 

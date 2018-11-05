@@ -1,5 +1,5 @@
 import React, { Component, Fragment } from 'react';
-import api from './api';
+import api from '../api';
 import { connect } from 'react-redux';
 import Header from './Header';
 import Loading from './Loading';

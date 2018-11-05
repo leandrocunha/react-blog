@@ -1,7 +1,7 @@
 import React, { Component, Fragment } from 'react';
 import styled from 'styled-components';
 import { connect } from 'react-redux';
-import api from './api';
+import api from '../api';
 import Breadcrumb from './Breadcrumd';
 import Comments from './Comments';
 import Header from './Header';
