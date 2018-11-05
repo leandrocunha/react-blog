@@ -37,19 +37,17 @@ class CommentForm extends Component {
     e.preventDefault();
 
     const { dispatch, post } = this.props;
-    const email = document.querySelector('input[name=email]');
-    const comment = document.querySelector('textarea[name=comment]');
-    const name = document.querySelector('input[name=name]');
+    const { comment, email, name } = this.state;
     const params = {
-      body: comment.value,
-      email: email.value,
-      name: name.value,
-      postId: post.id
+      postId: post.id,
+      body: comment,
+      email,
+      name
     };
 
     this.setState({ loading: true, error: false, errorMsg: null });
 
-    comment.value.length < 5
+    comment.length < 5
       ? this.setState({
           error: true,
           errorMsg: 'Your comment need 5 character at least.',
@@ -69,15 +67,31 @@ class CommentForm extends Component {
   }
 
   render() {
-    const { error, errorMsg, loading } = this.state;
+    const { comment, email, error, errorMsg, loading, name } = this.state;
 
     return (
       <Form onSubmit={this.submit}>
-        <input required name="name" placeholder="Your name" type="text" />
-        <input required name="email" placeholder="Your email" type="text" />
+        <input
+          required
+          defaultValue={name}
+          name="name"
+          onChange={({ target }) => this.setState({ name: target.value })}
+          placeholder="Your name"
+          type="text"
+        />
+        <input
+          required
+          defaultValue={email}
+          name="email"
+          onChange={({ target }) => this.setState({ email: target.value })}
+          placeholder="Your email"
+          type="text"
+        />
         <textarea
           required
+          defaultValue={comment}
           name="comment"
+          onChange={({ target }) => this.setState({ comment: target.value })}
           placeholder="Your comments"
           rows="6"
         />

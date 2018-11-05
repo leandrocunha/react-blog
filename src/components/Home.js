@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import Header from './Header';
 import Loading from './Loading';
 import Posts from './Posts';
+import actions from './../actions';
 
 class Home extends Component {
   constructor(props) {
@@ -15,8 +16,8 @@ class Home extends Component {
   componentDidMount() {
     const { dispatch } = this.props;
     api.posts().then(res => {
-      dispatch({ type: 'LIST', data: res });
-      setTimeout(() => this.setState({ loading: false }), 800);
+      dispatch(actions.posts.list(res));
+      this.setState({ loading: false });
     });
   }
 
@@ -26,7 +27,7 @@ class Home extends Component {
     const newLimit = limit + 10;
 
     api.posts(newLimit).then(res => {
-      dispatch({ type: 'LIST', data: res });
+      dispatch(actions.posts.list(res));
       setTimeout(() => this.setState({ limit: newLimit, loading: false }), 800);
     });
   }
