@@ -49,7 +49,7 @@ class Comments extends Component {
 
   render() {
     const { loading } = this.state;
-    const { comments } = this.props;
+    const { posts } = this.props;
 
     return (
       <Wrapper>
@@ -60,7 +60,7 @@ class Comments extends Component {
           <Loading />
         ) : (
           <Fragment>
-            {comments.map((comment, index) => (
+            {posts.comments.map((comment, index) => (
               <Comment key={index} {...comment} />
             ))}
             <Button label="load more" onClick={this.loadMore} />

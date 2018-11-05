@@ -33,12 +33,16 @@ class Home extends Component {
 
   render() {
     const { loading } = this.state;
-    const { list } = this.props;
+    const { posts } = this.props;
 
     return (
       <Fragment>
         <Header />
-        {loading ? <Loading /> : <Posts posts={list} onClick={this.loadMore} />}
+        {loading ? (
+          <Loading />
+        ) : (
+          <Posts posts={posts.list} onClick={this.loadMore} />
+        )}
       </Fragment>
     );
   }

@@ -12,7 +12,7 @@ const Form = styled.form`
   margin: 0 0 50px 0;
 
   button {
-    margin: 0 0 0 20px !important;
+    margin: 15px 0 15px 20px !important;
   }
 `;
 
@@ -57,6 +57,13 @@ class CommentForm extends Component {
         })
       : api.commentsNew(post.id, params).then(res => {
           dispatch({ type: 'COMMENTS/NEW', data: res });
+          dispatch({
+            type: 'NOTIFIER/SHOW',
+            data: {
+              title: 'Hooray!',
+              message: 'Your comment was posted with success.'
+            }
+          });
           this.setState({ loading: false });
         });
   }
@@ -84,6 +91,6 @@ class CommentForm extends Component {
   }
 }
 
-const mapStateToProps = state => state;
+const mapStateToProps = state => ({ post: state.posts.post });
 
 export default connect(mapStateToProps)(CommentForm);

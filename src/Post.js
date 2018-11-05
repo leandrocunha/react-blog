@@ -60,6 +60,6 @@ class Post extends Component {
   }
 }
 
-const mapStateToProps = state => state;
+const mapStateToProps = state => ({ post: state.posts.post });
 
 export default connect(mapStateToProps)(Post);

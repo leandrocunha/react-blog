@@ -3,6 +3,7 @@ import reset from 'styled-reset';
 import { BrowserRouter as Router, Route } from 'react-router-dom';
 import { createGlobalStyle } from 'styled-components';
 import Home from './Home';
+import Notifier from './Notifier';
 import Post from './Post';
 
 const GlobalStyle = createGlobalStyle`
@@ -44,6 +45,7 @@ const App = () => (
       <GlobalStyle />
       <Route exact path="/" component={Home} />
       <Route path="/post/:id" component={Post} />
+      <Notifier />
     </Fragment>
   </Router>
 );

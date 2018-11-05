@@ -22,7 +22,9 @@ const Loader = styled.div`
   height: ${props => (props.size === 'small' ? '15px' : '30px')};
   width: ${props => (props.size === 'small' ? '15px' : '30px')};
   animation: ${rotate} 0.8s infinite linear;
-  border: 4px solid #e9003f;
+  border-color: #e9003f;
+  border-style: solid;
+  border-width: ${props => (props.size === 'small' ? '2px' : '4px')};
   border-right-color: transparent;
   border-radius: 50%;
 `;
