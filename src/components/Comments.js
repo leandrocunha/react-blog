@@ -24,18 +24,30 @@ const Title = styled.h2`
 class Comments extends Component {
   constructor(props) {
     super(props);
+
+    /** Set state with default values.
+     * @param {number} limit
+     * @param {bool} loading
+     */
     this.state = { limit: 3, loading: true };
+
+    /** Bind function to load more comments */
     this.loadMore = this.loadMore.bind(this);
   }
 
   componentDidMount() {
     const { dispatch, postId } = this.props;
+
+    /** Call api to get comments from this posts */
     api.comments(postId).then(res => {
       dispatch({ type: 'COMMENTS', data: res });
       setTimeout(() => this.setState({ loading: false }), 800);
     });
   }
 
+  /**
+   * @function loadMore Incrise local state limit and get more comments
+   */
   loadMore() {
     const { limit } = this.state;
     const { dispatch, postId } = this.props;

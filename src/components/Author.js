@@ -29,11 +29,19 @@ const Name = styled.p`
 class Author extends Component {
   constructor(props) {
     super(props);
+
+    /** Set state with default values.
+     * @param {bool} loading
+     * @example
+     * { loading: false }
+     */
     this.state = { loading: true };
   }
 
   componentDidMount() {
     const { id } = this.props;
+
+    /** Call api to get author's profile  */
     api
       .author(id)
       .then(res =>

@@ -29,10 +29,18 @@ const ErrorMsg = styled.p`
 class CommentForm extends Component {
   constructor(props) {
     super(props);
+
+    /** Set state with default values.*/
     this.state = {};
+
+    /** Bind function to submit form. */
     this.submit = this.submit.bind(this);
   }
 
+  /**
+   * @function submit Post new comment on post
+   * @param {event} e event to prevent submit
+   */
   submit(e) {
     e.preventDefault();
 

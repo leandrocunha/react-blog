@@ -6,6 +6,7 @@ import Home from './Home';
 import Notifier from './Notifier';
 import Post from './Post';
 
+/** Set default styles */
 const GlobalStyle = createGlobalStyle`
   @import url('https://fonts.googleapis.com/css?family=Open+Sans:400,700,800');
   

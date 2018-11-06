@@ -27,11 +27,17 @@ const PostTitle = styled.h1`
 class Post extends Component {
   constructor(props) {
     super(props);
+
+    /** Set state with default values.
+     * @param {bool} loading
+     */
     this.state = { loading: true };
   }
 
   componentDidMount() {
     const { dispatch, match } = this.props;
+
+    /** Call api to get post */
     api.post(match.params.id).then(res => {
       dispatch({ type: 'POST', data: res });
       setTimeout(() => this.setState({ loading: false }), 800);

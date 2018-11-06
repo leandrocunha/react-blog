@@ -6,6 +6,7 @@ import App from './components/App';
 import notifier from './reducers/notifier';
 import posts from './reducers/posts';
 
+/** Build store to feed Provider. */
 const store = createStore(
   combineReducers({
     notifier,
@@ -14,6 +15,7 @@ const store = createStore(
   window.devToolsExtension && window.devToolsExtension()
 );
 
+/** Render application. */
 ReactDOM.render(
   <Provider store={store}>
     <App />
